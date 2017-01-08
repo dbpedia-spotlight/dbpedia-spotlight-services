@@ -1,0 +1,37 @@
+# Allow Eureka to recognize two apps of the same type on the same host as separate instances
+eureka:
+  instance:
+    instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+---
+spring:
+  profiles: local
+  application:
+    name: spotlight-services
+  cloud:
+    config:
+      uri: http://localhost:8001
+  rabbitmq:
+    username: guest
+    password: guest
+    addresses: localhost
+    port: 5672
+
+security:
+    basic:
+        enabled: false
+
+
+---
+spring:
+ profiles: heroku
+ application:
+   name: spotlight-services
+ cloud:
+   config:
+     uri: https://spotlight-config-server.herokuapp.com/
+ rabbitmq:
+   username: guest
+   password: guest
+   addresses: localhost
+   port: 5672
