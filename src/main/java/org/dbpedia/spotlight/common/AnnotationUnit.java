@@ -32,4 +32,15 @@ public class AnnotationUnit {
 
     @JsonProperty("Resources")
     private List<ResourceItem> resources;
+
+    public Integer endIndex() {
+        if (text != null) {
+            return text.length();
+        }
+        return 0;
+    }
+
+    public Integer beginIndex() {
+        return 1;
+    }
 }
