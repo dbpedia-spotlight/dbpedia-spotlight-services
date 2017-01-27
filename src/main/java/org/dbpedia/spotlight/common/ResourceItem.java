@@ -1,24 +1,34 @@
 package org.dbpedia.spotlight.common;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class ResourceItem {
 
-    @JsonIgnore
-    private String context;
+    @JsonProperty("@URI")
+    private String uri;
 
+    @JsonProperty("@support")
+    private String support;
+
+    @JsonProperty("@types")
+    private String types;
+
+    @JsonProperty("@surfaceForm")
     private String surfaceForm;
 
-    private Integer startOffset;
+    @JsonProperty("@offset")
+    private String offSet;
 
-    private Integer endOffset;
+    @JsonProperty("@similarityScore")
+    private String similarityScore;
 
-    private List<AnnotatedItem> annotatedItems;
+    @JsonProperty("@percentageOfSecondRan")
+    private String percentageOfSecondRank;
 
 }

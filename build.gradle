@@ -49,6 +49,9 @@ dependencies {
     compile('org.springframework.cloud:spring-cloud-starter-ribbon')
     compile('org.springframework.cloud:spring-cloud-starter-feign')
     compile group: 'com.robbypond', name: 'boilerpipe', version: '1.2.3'
+    compile group: 'com.netflix.feign', name: 'feign-gson', version: '8.18.0'
+    compile 'io.github.openfeign.form:feign-form:2.0.6'
+    compile group: 'com.optimaize.languagedetector', name: 'language-detector', version: '0.6'
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
 }
 

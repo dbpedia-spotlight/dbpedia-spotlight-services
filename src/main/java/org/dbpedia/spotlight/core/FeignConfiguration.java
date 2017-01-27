@@ -2,7 +2,6 @@ package org.dbpedia.spotlight.core;
 
 import feign.Request;
 import feign.Retryer;
-import org.dbpedia.spotlight.services.Modules;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

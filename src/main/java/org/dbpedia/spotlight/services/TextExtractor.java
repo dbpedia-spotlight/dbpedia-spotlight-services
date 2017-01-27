@@ -1,14 +1,21 @@
-package org.dbpedia.spotlight.io;
+package org.dbpedia.spotlight.services;
 
 import de.l3s.boilerpipe.extractors.ArticleExtractor;
+import lombok.Getter;
+import lombok.Setter;
+import org.dbpedia.spotlight.common.Constants;
+import org.springframework.stereotype.Component;
 import org.xml.sax.InputSource;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+@Getter
+@Setter
+@Component
 public class TextExtractor {
 
-    public static final String extract(String url) {
+    public String extract(String url) {
 
         try {
 
@@ -20,7 +27,7 @@ public class TextExtractor {
 
             return ArticleExtractor.INSTANCE.getText(site);
         } catch (Exception e) {
-            return "";
+            return Constants.EMPTY;
         }
     }
 }
