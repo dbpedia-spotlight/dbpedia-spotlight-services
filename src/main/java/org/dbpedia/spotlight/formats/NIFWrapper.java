@@ -92,7 +92,7 @@ public class NIFWrapper {
 
     private String process(NIF nif, String outputFormat) {
 
-        if (outputFormat != null && SemanticMediaType.TURTLE.equalsIgnoreCase(outputFormat)) {
+        /*if (outputFormat != null && SemanticMediaType.TURTLE.equalsIgnoreCase(outputFormat)) {
             return nif.getTurtle();
         } else if (outputFormat != null && SemanticMediaType.JSON_LD.equalsIgnoreCase(outputFormat)) {
             return nif.getJSONLD(configuration.getJsonContext());
@@ -101,6 +101,9 @@ public class NIFWrapper {
         }
 
         return nif.getTurtle();
+        */
+
+        return "";
 
     }
 }
