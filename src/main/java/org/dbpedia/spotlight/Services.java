@@ -14,7 +14,9 @@ import org.springframework.integration.annotation.IntegrationComponentScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @IntegrationComponentScan
-@EnableAutoConfiguration
+@EnableAutoConfiguration(exclude = {
+        org.springframework.boot.autoconfigure.security.SecurityAutoConfiguration.class,
+        org.springframework.boot.actuate.autoconfigure.ManagementWebSecurityAutoConfiguration.class})
 @SuppressWarnings("checkstyle:hideutilityclassconstructor")
 public class Services {
     public static void main(String[] args) {
