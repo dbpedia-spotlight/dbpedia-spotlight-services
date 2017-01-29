@@ -3,9 +3,9 @@ package org.dbpedia.spotlight.common;
 
 public interface SemanticMediaType {
 
-    String TURTLE = "text/turtle";
+    String TEXT_TURTLE = "text/turtle";
 
-    String NTRIPLES = "";
+    String APPLICATION_N_TRIPLES = "application/n-triples";
 
-    String JSON_LD = "";
+    String APPLICATION_LD_JSON = "application/ld+json";
 }

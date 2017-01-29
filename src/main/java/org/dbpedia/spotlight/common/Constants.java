@@ -5,4 +5,7 @@ public interface Constants {
     String EMPTY = "";
 
     String SLASH = "/";
+
+    String COMMA = ",";
+
 }

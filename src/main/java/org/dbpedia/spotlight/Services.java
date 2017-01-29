@@ -9,7 +9,7 @@ import org.springframework.cloud.netflix.feign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.integration.annotation.IntegrationComponentScan;
 
-@ComponentScan
+@ComponentScan(basePackages = {"org.dbpedia.spotlight.services", "org.dbpedia.spotlight.rest"})
 @EnableFeignClients
 @SpringBootApplication
 @EnableDiscoveryClient

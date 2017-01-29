@@ -7,8 +7,6 @@ import org.nlp2rdf.NIF;
 import org.nlp2rdf.bean.NIFBean;
 import org.nlp2rdf.bean.NIFType;
 import org.nlp2rdf.nif21.impl.NIF21;
-import org.nlp2rdf.parser.NIFParser;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +15,7 @@ import static org.dbpedia.spotlight.common.Constants.SLASH;
 
 public class NIFWrapper {
 
-    @Autowired
-    private SpotlightConfiguration configuration;
+   private SpotlightConfiguration configuration;
 
     private List<NIFBean> entities = new ArrayList<>();
 
@@ -26,7 +23,19 @@ public class NIFWrapper {
 
     private String baseURI;
 
-    public NIFWrapper(String baseURI) {
+
+    public NIFWrapper(SpotlightConfiguration configuration) {
+
+        this.configuration = configuration;
+
+        this.baseURI = configuration.getSpotlightURL();
+
+        formatBaseURI();
+    }
+
+    public NIFWrapper(SpotlightConfiguration configuration, String baseURI) {
+
+        this.configuration = configuration;
 
         this.baseURI = baseURI;
 
@@ -53,28 +62,27 @@ public class NIFWrapper {
         }
     }
 
-    public void entity(AnnotationUnit result) {
+    public void entity(AnnotationUnit annotationUnit) {
 
         NIFBean.NIFBeanBuilder entity = new NIFBean.NIFBeanBuilder();
+        this.context(annotationUnit.getText());
 
-        entity.annotator(configuration.getSpotlightURL()).beginIndex(result.beginIndex()).endIndex(result.endIndex())
-                .mention(result.getText()).context(baseURI, result.beginIndex(), result.endIndex());
+        if (annotationUnit.getResources() != null && !annotationUnit.getResources().isEmpty()) {
+
+            annotationUnit.getResources().stream().forEach(resourceItem ->  {
+                entity.mention(resourceItem.getSurfaceForm());
+                entity.beginIndex(resourceItem.beginIndex());
+                entity.endIndex(resourceItem.endIndex());
+                entity.annotator(configuration.getSpotlightURL());
+                entity.taIdentRef(resourceItem.getUri());
+                entity.types(resourceItem.typesList());
+                entity.score(resourceItem.score());
+                entity.context(baseURI, annotationUnit.beginIndex(), annotationUnit.endIndex());
+                entities.add(new NIFBean(entity));
+            });
+        }
 
 
-        entities.add(new NIFBean(entity));
-
-    }
-
-    public String getNIF(String outputFormat, NIFParser parser) {
-
-        List<NIFBean> entitiesToProcess = new ArrayList<>(entities.size());
-
-        entitiesToProcess.add(beanContext);
-        entitiesToProcess.addAll(entities);
-
-        NIF nif = new NIF21(entitiesToProcess, parser);
-
-        return process(nif, outputFormat);
     }
 
     public String getNIF(String outputFormat) {
@@ -92,18 +100,15 @@ public class NIFWrapper {
 
     private String process(NIF nif, String outputFormat) {
 
-        /*if (outputFormat != null && SemanticMediaType.TURTLE.equalsIgnoreCase(outputFormat)) {
+        if (outputFormat != null && SemanticMediaType.TEXT_TURTLE.equalsIgnoreCase(outputFormat)) {
             return nif.getTurtle();
-        } else if (outputFormat != null && SemanticMediaType.JSON_LD.equalsIgnoreCase(outputFormat)) {
+        } else if (outputFormat != null && SemanticMediaType.APPLICATION_LD_JSON.equalsIgnoreCase(outputFormat)) {
             return nif.getJSONLD(configuration.getJsonContext());
-        } else if (outputFormat != null && SemanticMediaType.NTRIPLES.equalsIgnoreCase(outputFormat)) {
+        } else if (outputFormat != null && SemanticMediaType.APPLICATION_N_TRIPLES.equalsIgnoreCase(outputFormat)) {
             return nif.getNTriples();
         }
 
         return nif.getTurtle();
-        */
-
-        return "";
 
     }
 }
