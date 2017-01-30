@@ -5,7 +5,6 @@ import feign.form.FormEncoder;
 import lombok.RequiredArgsConstructor;
 import org.dbpedia.spotlight.approach.Model;
 import org.dbpedia.spotlight.common.AnnotationUnit;
-
 import org.dbpedia.spotlight.formats.NIFWrapper;
 import org.dbpedia.spotlight.services.SpotlightConfiguration;
 import org.dbpedia.spotlight.services.SpotlightLanguageDetector;
@@ -20,10 +19,10 @@ import javax.ws.rs.core.MediaType;
 import java.util.Optional;
 
 import static org.dbpedia.spotlight.common.Constants.EMPTY;
-import static org.dbpedia.spotlight.formats.JSON.to;
 import static org.dbpedia.spotlight.common.SemanticMediaType.APPLICATION_LD_JSON;
 import static org.dbpedia.spotlight.common.SemanticMediaType.APPLICATION_N_TRIPLES;
 import static org.dbpedia.spotlight.common.SemanticMediaType.TEXT_TURTLE;
+import static org.dbpedia.spotlight.formats.JSON.to;
 
 @Controller(value = "/annotate")
 @RequiredArgsConstructor

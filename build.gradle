@@ -22,9 +22,9 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'checkstyle'
 apply plugin: 'info.robotbrain.lombok'
 
-checkstyle {
-    configFile = new File("etc/config/checkstyle", "checkstyle.xml")
-}
+// checkstyle {
+//    configFile = new File("etc/config/checkstyle", "checkstyle.xml")
+//}
 
 configurations {
     provided
