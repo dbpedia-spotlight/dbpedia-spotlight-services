@@ -1,11 +1,12 @@
 package org.dbpedia.spotlight.common;
 
 
-public interface SemanticMediaType {
+public final class SemanticMediaType {
 
-    String TEXT_TURTLE = "text/turtle";
+    public static final String TEXT_TURTLE = "text/turtle";
+    public static final String APPLICATION_N_TRIPLES = "application/n-triples";
+    public static final String APPLICATION_LD_JSON = "application/ld+json";
 
-    String APPLICATION_N_TRIPLES = "application/n-triples";
-
-    String APPLICATION_LD_JSON = "application/ld+json";
+    private SemanticMediaType() {
+    }
 }

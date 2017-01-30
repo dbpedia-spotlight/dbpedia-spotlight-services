@@ -55,8 +55,9 @@ public class ResourceItem {
     }
 
     public Integer endIndex() {
-        if (surfaceForm != null)
+        if (surfaceForm != null) {
             return beginIndex() + surfaceForm.length();
+        }
 
         return 0;
     }

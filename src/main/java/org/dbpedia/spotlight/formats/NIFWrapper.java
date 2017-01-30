@@ -15,7 +15,7 @@ import static org.dbpedia.spotlight.common.Constants.SLASH;
 
 public class NIFWrapper {
 
-   private SpotlightConfiguration configuration;
+    private SpotlightConfiguration configuration;
 
     private List<NIFBean> entities = new ArrayList<>();
 
@@ -69,7 +69,7 @@ public class NIFWrapper {
 
         if (annotationUnit.getResources() != null && !annotationUnit.getResources().isEmpty()) {
 
-            annotationUnit.getResources().stream().forEach(resourceItem ->  {
+            annotationUnit.getResources().stream().forEach(resourceItem -> {
                 entity.mention(resourceItem.getSurfaceForm());
                 entity.beginIndex(resourceItem.beginIndex());
                 entity.endIndex(resourceItem.endIndex());

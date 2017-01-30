@@ -74,6 +74,7 @@
 
         <module name="ParameterNumber">
             <property name="id" value="checkstyle:parameternumber"/>
+            <property name="max" value="10"/>
         </module>
 
         <module name="EmptyForIteratorPad">
@@ -390,7 +391,7 @@
 
         <module name="CyclomaticComplexity">
             <property name="id" value="checkstyle:cyclomaticcomplexity"/>
-            <property name="max" value="7"/>
+            <property name="max" value="10"/>
         </module>
 
         <module name="StrictDuplicateCode">

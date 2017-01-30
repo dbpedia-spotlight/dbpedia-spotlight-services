@@ -12,6 +12,7 @@ import com.optimaize.langdetect.text.TextObject;
 import com.optimaize.langdetect.text.TextObjectFactory;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component
@@ -19,7 +20,7 @@ public class SpotlightLanguageDetector {
 
     private final String ENGLISH = "en";
 
-    private LanguageDetector languageDetector = null;
+    private LanguageDetector languageDetector;
 
 
     public SpotlightLanguageDetector() {
@@ -31,7 +32,7 @@ public class SpotlightLanguageDetector {
                     .withProfiles(profiles)
                     .build();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
         }
 
     }
@@ -39,7 +40,9 @@ public class SpotlightLanguageDetector {
 
     public String language(String text) {
 
-        if (languageDetector == null || text == null) return ENGLISH;
+        if (languageDetector == null || text == null) {
+            return ENGLISH;
+        }
 
         TextObjectFactory objectFactory = CommonTextObjectFactories.forDetectingShortCleanText();
 
