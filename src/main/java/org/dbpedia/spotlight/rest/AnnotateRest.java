@@ -12,6 +12,7 @@ import org.dbpedia.spotlight.services.TextExtractor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +25,7 @@ import static org.dbpedia.spotlight.common.SemanticMediaType.APPLICATION_N_TRIPL
 import static org.dbpedia.spotlight.common.SemanticMediaType.TEXT_TURTLE;
 import static org.dbpedia.spotlight.formats.JSON.to;
 
+@CrossOrigin(origins = "*")
 @Controller(value = "/annotate")
 @RequiredArgsConstructor
 public class AnnotateRest implements AnnotateResource {
