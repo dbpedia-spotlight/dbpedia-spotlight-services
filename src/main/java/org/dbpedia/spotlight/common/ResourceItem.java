@@ -41,8 +41,8 @@ public class ResourceItem {
     @SerializedName("@similarityScore")
     private String similarityScore;
 
-    @JsonProperty("@percentageOfSecondRan")
-    @SerializedName("@percentageOfSecondRan")
+    @JsonProperty("@percentageOfSecondRank")
+    @SerializedName("@percentageOfSecondRank")
     private String percentageOfSecondRank;
 
 
