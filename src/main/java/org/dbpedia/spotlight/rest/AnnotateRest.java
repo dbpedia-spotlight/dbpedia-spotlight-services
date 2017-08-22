@@ -70,11 +70,12 @@ public class AnnotateRest implements AnnotateResource {
                                       Optional<String> inUrl,
                                       Optional<Double> confidence,
                                       Optional<String> dbpediaTypes,
+                                      Optional<String> prefix,
                                       String outputFormat) {
         NIFWrapper nif;
 
-        if (inUrl.isPresent()) {
-            nif = new NIFWrapper(configuration, inUrl.get());
+        if (prefix.isPresent()) {
+            nif = new NIFWrapper(configuration, prefix.get());
         } else {
             nif = new NIFWrapper(configuration);
         }
@@ -132,9 +133,10 @@ public class AnnotateRest implements AnnotateResource {
                                       @RequestParam("policy") Optional<String> policy,
                                       @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                       @RequestParam("spotter") Optional<String> spotter,
-                                      @RequestParam("disambiguator") Optional<String> disambiguatorName) {
+                                      @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                                      @RequestParam("prefix") Optional<String> prefix) {
 
-        String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, TEXT_TURTLE);
+        String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, prefix, TEXT_TURTLE);
 
         return new ResponseEntity<String>(result, HttpStatus.OK);
     }
@@ -150,10 +152,11 @@ public class AnnotateRest implements AnnotateResource {
                                           @RequestParam("policy") Optional<String> policy,
                                           @RequestParam("coreferenceResolution") Optional<Boolean> coreference,
                                           @RequestParam("spotter") Optional<String> spotter,
-                                          @RequestParam("disambiguator") Optional<String> disambiguatorName) {
+                                          @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                                          @RequestParam("prefix") Optional<String> prefix) {
 
 
-        String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, APPLICATION_N_TRIPLES);
+        String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, prefix, APPLICATION_N_TRIPLES);
 
         return new ResponseEntity<String>(result, HttpStatus.OK);
     }
@@ -168,9 +171,10 @@ public class AnnotateRest implements AnnotateResource {
                                          @RequestParam("policy") Optional<String> policy,
                                          @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                          @RequestParam("spotter") Optional<String> spotter,
-                                         @RequestParam("disambiguator") Optional<String> disambiguatorName) {
+                                         @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                                         @RequestParam("prefix") Optional<String> prefix) {
 
-        String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, APPLICATION_LD_JSON);
+        String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, prefix, APPLICATION_LD_JSON);
 
         return new ResponseEntity<String>(result, HttpStatus.OK);
     }

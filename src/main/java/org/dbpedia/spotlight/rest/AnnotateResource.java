@@ -61,7 +61,8 @@ public interface AnnotateResource {
                                @RequestParam("policy") Optional<String> policy,
                                @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                @RequestParam("spotter") Optional<String> spotter,
-                               @RequestParam("disambiguator") Optional<String> disambiguatorName);
+                               @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                               @RequestParam("prefix") Optional<String> prefix);
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
@@ -77,7 +78,8 @@ public interface AnnotateResource {
                                    @RequestParam("policy") Optional<String> policy,
                                    @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                    @RequestParam("spotter") Optional<String> spotter,
-                                   @RequestParam("disambiguator") Optional<String> disambiguatorName);
+                                   @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                                   @RequestParam("prefix") Optional<String> prefix);
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
             consumes = {MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
@@ -92,6 +94,7 @@ public interface AnnotateResource {
                                   @RequestParam("policy") Optional<String> policy,
                                   @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                   @RequestParam("spotter") Optional<String> spotter,
-                                  @RequestParam("disambiguator") Optional<String> disambiguatorName);
+                                  @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                                  @RequestParam("prefix") Optional<String> prefix);
 
 }
