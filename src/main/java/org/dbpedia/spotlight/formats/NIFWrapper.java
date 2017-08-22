@@ -77,7 +77,7 @@ public class NIFWrapper {
                 entity.taIdentRef(resourceItem.getUri());
                 entity.types(resourceItem.typesList());
                 entity.score(resourceItem.score());
-                entity.context(baseURI, annotationUnit.beginIndex(), annotationUnit.endIndex());
+                entity.context(baseURI, annotationUnit.beginIndex(), resourceItem.getSurfaceForm().length());
                 entities.add(new NIFBean(entity));
             });
         }
