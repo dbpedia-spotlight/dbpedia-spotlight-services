@@ -1,5 +1,6 @@
 package org.dbpedia.spotlight.rest;
 
+import de.l3s.boilerpipe.extractors.ArticleExtractor;
 import feign.Feign;
 import feign.form.FormEncoder;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,7 +44,16 @@ public class AnnotateRest implements AnnotateResource {
                                   Optional<String> dbpediaTypes,
                                   String outputFormat) {
 
-        Optional<String> currentText = text;
+        Optional<String> currentText = Optional.empty();
+
+        if (text.isPresent()) {
+            try {
+                currentText = Optional.of(ArticleExtractor.INSTANCE.getText(text.get()));
+            } catch (Exception e) {
+
+            }
+
+        }
 
         if (inUrl.isPresent()) {
             currentText = Optional.of(textExtractor.extract(inUrl.get()));
@@ -97,7 +108,12 @@ public class AnnotateRest implements AnnotateResource {
                                        @RequestParam("policy") Optional<String> policy,
                                        @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                        @RequestParam("spotter") Optional<String> spotter,
-                                       @RequestParam("disambiguator") Optional<String> disambiguatorName) {
+                                       @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                                       @RequestBody  String fileContent) {
+
+        if (!text.isPresent() && fileContent != null) {
+            text = Optional.of(fileContent);
+        }
 
         String result = serviceRequest(text, inUrl, confidence, dbpediaTypes, MediaType.TEXT_HTML);
 
@@ -115,7 +131,12 @@ public class AnnotateRest implements AnnotateResource {
                                @RequestParam("policy") Optional<String> policy,
                                @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                @RequestParam("spotter") Optional<String> spotter,
-                               @RequestParam("disambiguator") Optional<String> disambiguatorName) {
+                               @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                               @RequestBody  String fileContent) {
+
+        if (!text.isPresent() && fileContent != null) {
+            text = Optional.of(fileContent);
+        }
 
         return to(serviceRequest(text, inUrl, confidence, dbpediaTypes, MediaType.APPLICATION_JSON));
 
@@ -134,7 +155,12 @@ public class AnnotateRest implements AnnotateResource {
                                       @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                       @RequestParam("spotter") Optional<String> spotter,
                                       @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                                      @RequestParam("prefix") Optional<String> prefix) {
+                                      @RequestParam("prefix") Optional<String> prefix,
+                                      @RequestBody  String fileContent) {
+
+        if (!text.isPresent() && fileContent != null) {
+            text = Optional.of(fileContent);
+        }
 
         String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, prefix, TEXT_TURTLE);
 
@@ -153,8 +179,11 @@ public class AnnotateRest implements AnnotateResource {
                                           @RequestParam("coreferenceResolution") Optional<Boolean> coreference,
                                           @RequestParam("spotter") Optional<String> spotter,
                                           @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                                          @RequestParam("prefix") Optional<String> prefix) {
-
+                                          @RequestParam("prefix") Optional<String> prefix,
+                                          @RequestBody  String fileContent) {
+        if (!text.isPresent() && fileContent != null) {
+            text = Optional.of(fileContent);
+        }
 
         String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, prefix, APPLICATION_N_TRIPLES);
 
@@ -172,7 +201,12 @@ public class AnnotateRest implements AnnotateResource {
                                          @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                          @RequestParam("spotter") Optional<String> spotter,
                                          @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                                         @RequestParam("prefix") Optional<String> prefix) {
+                                         @RequestParam("prefix") Optional<String> prefix,
+                                         @RequestBody  String fileContent) {
+
+        if (!text.isPresent() && fileContent != null) {
+            text = Optional.of(fileContent);
+        }
 
         String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, prefix, APPLICATION_LD_JSON);
 

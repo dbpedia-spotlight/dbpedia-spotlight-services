@@ -5,10 +5,7 @@ import org.dbpedia.spotlight.common.AnnotationUnit;
 import org.dbpedia.spotlight.common.SemanticMediaType;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.MediaType;
 import java.util.Optional;
@@ -29,7 +26,8 @@ public interface AnnotateResource {
                                 @RequestParam("policy") Optional<String> policy,
                                 @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                 @RequestParam("spotter") Optional<String> spotter,
-                                @RequestParam("disambiguator") Optional<String> disambiguatorName);
+                                @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                                @RequestBody  String fileContent);
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
@@ -45,11 +43,12 @@ public interface AnnotateResource {
                         @RequestParam("policy") Optional<String> policy,
                         @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                         @RequestParam("spotter") Optional<String> spotter,
-                        @RequestParam("disambiguator") Optional<String> disambiguatorName);
+                        @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                        @RequestBody  String fileContent);
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
             produces = SemanticMediaType.TEXT_TURTLE)
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<String> nif(@RequestParam("text") Optional<String> text,
@@ -62,7 +61,10 @@ public interface AnnotateResource {
                                @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                @RequestParam("spotter") Optional<String> spotter,
                                @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                               @RequestParam("prefix") Optional<String> prefix);
+                               @RequestParam("prefix") Optional<String> prefix,
+                               @RequestBody String fileContent);
+
+
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
@@ -79,7 +81,8 @@ public interface AnnotateResource {
                                    @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                    @RequestParam("spotter") Optional<String> spotter,
                                    @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                                   @RequestParam("prefix") Optional<String> prefix);
+                                   @RequestParam("prefix") Optional<String> prefix,
+                                   @RequestBody  String fileContent);
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
             consumes = {MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
@@ -95,6 +98,7 @@ public interface AnnotateResource {
                                   @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                   @RequestParam("spotter") Optional<String> spotter,
                                   @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                                  @RequestParam("prefix") Optional<String> prefix);
+                                  @RequestParam("prefix") Optional<String> prefix,
+                                  @RequestBody  String fileContent);
 
 }
