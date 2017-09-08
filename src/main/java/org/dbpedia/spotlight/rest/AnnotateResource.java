@@ -27,7 +27,7 @@ public interface AnnotateResource {
                                 @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                                 @RequestParam("spotter") Optional<String> spotter,
                                 @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                                @RequestBody  String fileContent);
+                                @RequestBody  Optional<String> fileContent);
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
@@ -44,7 +44,7 @@ public interface AnnotateResource {
                         @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
                         @RequestParam("spotter") Optional<String> spotter,
                         @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                        @RequestBody  String fileContent);
+                        @RequestBody  Optional<String> fileContent);
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
@@ -62,7 +62,7 @@ public interface AnnotateResource {
                                @RequestParam("spotter") Optional<String> spotter,
                                @RequestParam("disambiguator") Optional<String> disambiguatorName,
                                @RequestParam("prefix") Optional<String> prefix,
-                               @RequestBody String fileContent);
+                               @RequestBody Optional<String> fileContent);
 
 
 
@@ -82,7 +82,7 @@ public interface AnnotateResource {
                                    @RequestParam("spotter") Optional<String> spotter,
                                    @RequestParam("disambiguator") Optional<String> disambiguatorName,
                                    @RequestParam("prefix") Optional<String> prefix,
-                                   @RequestBody  String fileContent);
+                                   @RequestBody  Optional<String> fileContent);
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
             consumes = {MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
@@ -99,6 +99,6 @@ public interface AnnotateResource {
                                   @RequestParam("spotter") Optional<String> spotter,
                                   @RequestParam("disambiguator") Optional<String> disambiguatorName,
                                   @RequestParam("prefix") Optional<String> prefix,
-                                  @RequestBody  String fileContent);
+                                  @RequestBody  Optional<String> fileContent);
 
 }

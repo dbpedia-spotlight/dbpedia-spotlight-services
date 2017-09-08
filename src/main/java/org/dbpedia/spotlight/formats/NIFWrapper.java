@@ -98,10 +98,21 @@ public class NIFWrapper {
 
     }
 
+    private String nifPrefixes(String nif) {
+        StringBuilder builder = new StringBuilder();
+
+        builder.append("@prefix schema:   <http://schema.org> .\n");
+        builder.append("@prefix dbpedia:   <http://dbpedia.org/resource/> .\n");
+        builder.append(nif);
+
+        return builder.toString();
+
+    }
+
     private String process(NIF nif, String outputFormat) {
 
         if (outputFormat != null && SemanticMediaType.TEXT_TURTLE.equalsIgnoreCase(outputFormat)) {
-            return nif.getTurtle();
+            return nifPrefixes(nif.getTurtle());
         } else if (outputFormat != null && SemanticMediaType.APPLICATION_LD_JSON.equalsIgnoreCase(outputFormat)) {
             return nif.getJSONLD(configuration.getJsonContext());
         } else if (outputFormat != null && SemanticMediaType.APPLICATION_N_TRIPLES.equalsIgnoreCase(outputFormat)) {

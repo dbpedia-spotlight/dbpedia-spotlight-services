@@ -48,6 +48,15 @@ public class AnnotationUnit {
         return 0;
     }
 
+    public String getTypes() {
+        if (types != null && !types.isEmpty()) {
+            return types.replace("Http", "http").
+                         replace("DBpedia:", "dbpedia:").
+                         replace("Schema:", "schema:");
+        }
+        return types;
+    }
+
     public Integer beginIndex() {
         return 1;
     }
