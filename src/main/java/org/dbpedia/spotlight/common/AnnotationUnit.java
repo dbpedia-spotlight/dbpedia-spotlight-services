@@ -8,6 +8,9 @@ import lombok.Setter;
 
 import java.util.List;
 
+import static org.dbpedia.spotlight.common.Prefixes.DBPEDIA_ONTOLOGY;
+import static org.dbpedia.spotlight.common.Prefixes.SCHEMA_ONTOLOGY;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -51,8 +54,8 @@ public class AnnotationUnit {
     public String getTypes() {
         if (types != null && !types.isEmpty()) {
             return types.replace("Http", "http").
-                         replace("DBpedia:", "dbpedia:").
-                         replace("Schema:", "schema:");
+                         replace("DBpedia:", DBPEDIA_ONTOLOGY).
+                         replace("Schema:", SCHEMA_ONTOLOGY);
         }
         return types;
     }

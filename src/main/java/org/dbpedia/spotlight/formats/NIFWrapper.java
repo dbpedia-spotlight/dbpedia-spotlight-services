@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.dbpedia.spotlight.common.Constants.SLASH;
+import static org.dbpedia.spotlight.common.Prefixes.DBPEDIA_ONTOLOGY;
+import static org.dbpedia.spotlight.common.Prefixes.SCHEMA_ONTOLOGY;
 
 public class NIFWrapper {
 
@@ -30,7 +32,6 @@ public class NIFWrapper {
 
         this.baseURI = configuration.getSpotlightURL();
 
-        formatBaseURI();
     }
 
     public NIFWrapper(SpotlightConfiguration configuration, String baseURI) {
@@ -39,7 +40,6 @@ public class NIFWrapper {
 
         this.baseURI = baseURI;
 
-        formatBaseURI();
     }
 
     public void context(String mention) {
@@ -53,13 +53,6 @@ public class NIFWrapper {
 
         beanContext = new NIFBean(contextBuilder);
 
-    }
-
-    private void formatBaseURI() {
-        if (baseURI != null && !baseURI.isEmpty() &&
-                !SLASH.equals(baseURI.substring(baseURI.length() - 1))) {
-            baseURI = baseURI.concat(SLASH);
-        }
     }
 
     public void entity(AnnotationUnit annotationUnit) {
@@ -101,8 +94,8 @@ public class NIFWrapper {
     private String nifPrefixes(String nif) {
         StringBuilder builder = new StringBuilder();
 
-        builder.append("@prefix schema:   <http://schema.org> .\n");
-        builder.append("@prefix dbpedia:   <http://dbpedia.org/resource/> .\n");
+        builder.append(String.format("@prefix schema:   <%s> .\n", SCHEMA_ONTOLOGY));
+        builder.append(String.format("@prefix dbpedia:   <%s> .\n", DBPEDIA_ONTOLOGY));
         builder.append(nif);
 
         return builder.toString();

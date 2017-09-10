@@ -6,6 +6,9 @@ import org.dbpedia.spotlight.common.ResourceItem;
 
 import java.util.List;
 
+import static org.dbpedia.spotlight.common.Prefixes.DBPEDIA_ONTOLOGY;
+import static org.dbpedia.spotlight.common.Prefixes.SCHEMA_ONTOLOGY;
+
 public final class JSON {
 
     private JSON() {
@@ -36,8 +39,8 @@ public final class JSON {
 
         if (value != null && !value.isEmpty()) {
             return value.replace("Http", "http").
-                replace("DBpedia:", "dbpedia:").
-                replace("Schema:", "schema:");
+                replace("DBpedia:", DBPEDIA_ONTOLOGY).
+                replace("Schema:", SCHEMA_ONTOLOGY);
         }
         return value;
 
