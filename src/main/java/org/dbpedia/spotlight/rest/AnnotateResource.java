@@ -14,7 +14,7 @@ public interface AnnotateResource {
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
             produces = MediaType.TEXT_HTML)
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<String> html(@RequestParam("text") Optional<String> text,
@@ -31,7 +31,7 @@ public interface AnnotateResource {
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
             produces = MediaType.APPLICATION_JSON)
     @ResponseStatus(HttpStatus.OK)
     AnnotationUnit json(@RequestParam("text") Optional<String> text,
@@ -68,7 +68,7 @@ public interface AnnotateResource {
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
             produces = SemanticMediaType.APPLICATION_N_TRIPLES)
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<String> triples(@RequestParam("text") Optional<String> text,
@@ -85,7 +85,7 @@ public interface AnnotateResource {
                                    @RequestBody  Optional<String> fileContent);
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
             produces = SemanticMediaType.APPLICATION_LD_JSON)
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<String> jsonld(@RequestParam("text") Optional<String> text,
