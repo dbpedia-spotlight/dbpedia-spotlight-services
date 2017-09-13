@@ -14,7 +14,7 @@ public interface AnnotateResource {
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.WILDCARD},
             produces = MediaType.TEXT_HTML)
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<String> html(@RequestParam("text") Optional<String> text,
