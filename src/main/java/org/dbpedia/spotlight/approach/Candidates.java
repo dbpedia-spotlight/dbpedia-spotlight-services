@@ -5,16 +5,16 @@ import feign.Headers;
 import feign.Param;
 import feign.RequestLine;
 
-public interface Model {
+public interface Candidates {
 
-    @RequestLine("POST /annotate")
+    @RequestLine("POST /candidates")
     @Headers({"Content-Type: application/x-www-form-urlencoded", "Accept: application/json"})
-    String annotate(@Param("text") String text,
-                    @Param("types") String dbpediaTypes,
-                    @Param("confidence") Double confidence);
+    String candidates(@Param("text") String text,
+                      @Param("types") String dbpediaTypes,
+                      @Param("confidence") Double confidence);
 
 
-    @RequestLine("POST /annotate")
+    @RequestLine("POST /candidates")
     @Headers({"Content-Type: application/x-www-form-urlencoded", "Accept: text/html"})
     String html(@Param("text") String text,
                 @Param("types") String dbpediaTypes,

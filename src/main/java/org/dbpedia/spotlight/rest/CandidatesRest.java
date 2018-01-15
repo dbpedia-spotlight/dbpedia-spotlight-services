@@ -3,9 +3,9 @@ package org.dbpedia.spotlight.rest;
 import feign.Feign;
 import feign.form.FormEncoder;
 import lombok.RequiredArgsConstructor;
-import org.dbpedia.spotlight.approach.Annotate;
+import org.dbpedia.spotlight.approach.Candidates;
 import org.dbpedia.spotlight.common.SemanticMediaType;
-import org.dbpedia.spotlight.common.annotation.AnnotationUnit;
+import org.dbpedia.spotlight.common.candidates.array.CandidatesArrayUnit;
 import org.dbpedia.spotlight.formats.NIFWrapper;
 import org.dbpedia.spotlight.services.SpotlightConfiguration;
 import org.dbpedia.spotlight.services.SpotlightLanguageDetector;
@@ -19,13 +19,13 @@ import java.util.Optional;
 
 import static org.dbpedia.spotlight.common.Constants.EMPTY;
 import static org.dbpedia.spotlight.common.SemanticMediaType.*;
-import static org.dbpedia.spotlight.formats.JSON.toAnnotation;
+import static org.dbpedia.spotlight.formats.JSON.toCandidates;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("annotate")
+@RequestMapping("candidates")
 @RequiredArgsConstructor
-public class AnnotateRest extends DBpediaSpotlightRest {
+public class CandidatesRest extends DBpediaSpotlightRest {
 
     private final SpotlightLanguageDetector languageDetector;
 
@@ -47,21 +47,22 @@ public class AnnotateRest extends DBpediaSpotlightRest {
 
         String language = languageDetector.language(currentText.get());
 
-        Annotate annotate = Feign.builder().encoder(new FormEncoder()).target(Annotate.class,
+        Candidates candidates = Feign.builder().encoder(new FormEncoder()).target(Candidates.class,
                 String.format(configuration.getURL(), configuration.getSpotlightURL(), language));
 
 
         if (MediaType.TEXT_HTML.equalsIgnoreCase(outputFormat)) {
-            return annotate.html(currentText.get(), dbpediaTypes.orElse(EMPTY),
+            return candidates.html(currentText.get(), dbpediaTypes.orElse(EMPTY),
                     confidence.orElse(configuration.getDefaultConfidence()));
 
 
         }
 
-        return annotate.annotate(currentText.get(), dbpediaTypes.orElse(EMPTY),
+        return candidates.candidates(currentText.get(), dbpediaTypes.orElse(EMPTY),
                 confidence.orElse(configuration.getDefaultConfidence()));
 
     }
+
 
     private String getSemanticFormats(Optional<String> text,
                                       Optional<String> inUrl,
@@ -72,8 +73,8 @@ public class AnnotateRest extends DBpediaSpotlightRest {
 
         NIFWrapper nif = getNifWrapper(configuration, prefix);
 
-        AnnotationUnit annotationUnit = toAnnotation(serviceRequest(text, inUrl, confidence, dbpediaTypes, outputFormat));
-        nif.entity(annotationUnit);
+        CandidatesArrayUnit candidatesUnit = toCandidates(serviceRequest(text, inUrl, confidence, dbpediaTypes, outputFormat));
+        nif.entity(candidatesUnit);
 
         return nif.getNIF(outputFormat);
     }
@@ -105,33 +106,33 @@ public class AnnotateRest extends DBpediaSpotlightRest {
     }
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.WILDCARD},
             produces = MediaType.APPLICATION_JSON)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public AnnotationUnit json(@RequestParam("text") Optional<String> text,
-                               @RequestParam("url") Optional<String> inUrl,
-                               @RequestParam("confidence") Optional<Double> confidence,
-                               @RequestParam("support") Optional<Integer> support,
-                               @RequestParam("types") Optional<String> dbpediaTypes,
-                               @RequestParam("sparql") Optional<String> sparqlQuery,
-                               @RequestParam("policy") Optional<String> policy,
-                               @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
-                               @RequestParam("spotter") Optional<String> spotter,
-                               @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                               @RequestBody Optional<String> fileContent) {
+    public CandidatesArrayUnit json(@RequestParam("text") Optional<String> text,
+                                    @RequestParam("url") Optional<String> inUrl,
+                                    @RequestParam("confidence") Optional<Double> confidence,
+                                    @RequestParam("support") Optional<Integer> support,
+                                    @RequestParam("types") Optional<String> dbpediaTypes,
+                                    @RequestParam("sparql") Optional<String> sparqlQuery,
+                                    @RequestParam("policy") Optional<String> policy,
+                                    @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
+                                    @RequestParam("spotter") Optional<String> spotter,
+                                    @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                                    @RequestBody Optional<String> fileContent) {
 
         if (!text.isPresent() && fileContent.isPresent()) {
             text = fileContent;
         }
 
-        return toAnnotation(serviceRequest(text, inUrl, confidence, dbpediaTypes, MediaType.APPLICATION_JSON));
+        return toCandidates(serviceRequest(text, inUrl, confidence, dbpediaTypes, MediaType.APPLICATION_JSON));
 
 
     }
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.WILDCARD},
             produces = SemanticMediaType.TEXT_TURTLE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -159,7 +160,7 @@ public class AnnotateRest extends DBpediaSpotlightRest {
 
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.WILDCARD},
             produces = SemanticMediaType.APPLICATION_N_TRIPLES)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> triples(@RequestParam("text") Optional<String> text,
@@ -184,7 +185,7 @@ public class AnnotateRest extends DBpediaSpotlightRest {
     }
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
-            consumes = {MediaType.TEXT_PLAIN, MediaType.TEXT_HTML, MediaType.APPLICATION_FORM_URLENCODED},
+            consumes = {MediaType.WILDCARD},
             produces = SemanticMediaType.APPLICATION_LD_JSON)
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> jsonld(@RequestParam("text") Optional<String> text,

@@ -1,4 +1,4 @@
-package org.dbpedia.spotlight.common;
+package org.dbpedia.spotlight.common.annotation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
@@ -54,8 +54,8 @@ public class AnnotationUnit {
     public String getTypes() {
         if (types != null && !types.isEmpty()) {
             return types.replace("Http", "http").
-                         replace("DBpedia:", DBPEDIA_ONTOLOGY).
-                         replace("Schema:", SCHEMA_ONTOLOGY);
+                    replace("DBpedia:", DBPEDIA_ONTOLOGY).
+                    replace("Schema:", SCHEMA_ONTOLOGY);
         }
         return types;
     }

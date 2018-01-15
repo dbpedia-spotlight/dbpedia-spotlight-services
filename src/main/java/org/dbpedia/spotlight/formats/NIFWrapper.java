@@ -1,17 +1,19 @@
 package org.dbpedia.spotlight.formats;
 
-import org.dbpedia.spotlight.common.AnnotationUnit;
+import com.google.common.hash.Hashing;
 import org.dbpedia.spotlight.common.SemanticMediaType;
+import org.dbpedia.spotlight.common.annotation.AnnotationUnit;
+import org.dbpedia.spotlight.common.candidates.array.CandidatesArrayUnit;
 import org.dbpedia.spotlight.services.SpotlightConfiguration;
 import org.nlp2rdf.NIF;
 import org.nlp2rdf.bean.NIFBean;
 import org.nlp2rdf.bean.NIFType;
 import org.nlp2rdf.nif21.impl.NIF21;
 
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.dbpedia.spotlight.common.Constants.SLASH;
 import static org.dbpedia.spotlight.common.Prefixes.DBPEDIA_ONTOLOGY;
 import static org.dbpedia.spotlight.common.Prefixes.SCHEMA_ONTOLOGY;
 
@@ -54,6 +56,34 @@ public class NIFWrapper {
         beanContext = new NIFBean(contextBuilder);
 
     }
+
+    public void entity(CandidatesArrayUnit candidatesUnit) {
+
+        NIFBean.NIFBeanBuilder entity = new NIFBean.NIFBeanBuilder();
+        this.context(candidatesUnit.getCandidatesArrayAnnotation().getText());
+
+        if (candidatesUnit.getCandidatesArrayAnnotation().hasSurfaceForms()) {
+
+            candidatesUnit.getCandidatesArrayAnnotation().getSurfaceForms().stream().forEach(surfaceForm -> {
+
+                surfaceForm.getCandidateArrayResourceItem().forEach(candidateArrayResourceItem -> {
+                    entity.mention(surfaceForm.getName());
+                    entity.beginIndex(surfaceForm.beginIndex());
+                    entity.endIndex(surfaceForm.endIndex());
+                    entity.annotator(configuration.getSpotlightURL());
+                    entity.taIdentRef(candidateArrayResourceItem.getUri());
+                    entity.types(candidateArrayResourceItem.typesList());
+                    entity.score(candidateArrayResourceItem.getContextualScore());
+                    entity.context(String.format("%s/uui=%s&",baseURI,
+                            Hashing.sha256().hashString(candidateArrayResourceItem.getLabel(), StandardCharsets.UTF_8).toString()),
+                            surfaceForm.beginIndex(), surfaceForm.endIndex());
+                    entities.add(new NIFBean(entity));
+                });
+            });
+
+        }
+    }
+
 
     public void entity(AnnotationUnit annotationUnit) {
 

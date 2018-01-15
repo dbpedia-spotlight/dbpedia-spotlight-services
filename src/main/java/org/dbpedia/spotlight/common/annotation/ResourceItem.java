@@ -1,4 +1,4 @@
-package org.dbpedia.spotlight.common;
+package org.dbpedia.spotlight.common.annotation;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.annotations.SerializedName;
