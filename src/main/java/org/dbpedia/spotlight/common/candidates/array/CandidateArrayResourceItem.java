@@ -52,7 +52,9 @@ public class CandidateArrayResourceItem {
     public List<String> typesList() {
 
         if (types != null && !types.isEmpty()) {
-            return Arrays.asList(types.split(COMMA));
+            String[] typesArray = types.split(COMMA);
+            Arrays.parallelSetAll(typesArray, (i) -> typesArray[i].trim());
+            return Arrays.asList(typesArray);
         }
 
         return new ArrayList<>();
