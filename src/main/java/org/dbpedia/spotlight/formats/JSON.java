@@ -1,6 +1,8 @@
 package org.dbpedia.spotlight.formats;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.dbpedia.spotlight.common.ArrayAdapterFactory;
 import org.dbpedia.spotlight.common.annotation.AnnotationUnit;
 import org.dbpedia.spotlight.common.annotation.ResourceItem;
 import org.dbpedia.spotlight.common.candidates.CandidateResourceItem;
@@ -32,7 +34,7 @@ public final class JSON {
 
     public static CandidatesArrayUnit toCandidates(String content) {
 
-        Gson gson = new Gson();
+        Gson gson  = new GsonBuilder().registerTypeAdapterFactory(new ArrayAdapterFactory()).create();
 
         CandidatesArrayUnit candidatesUnit = new CandidatesArrayUnit();
 
