@@ -3,7 +3,7 @@ package org.dbpedia.spotlight.formats;
 import com.google.common.hash.Hashing;
 import org.dbpedia.spotlight.common.SemanticMediaType;
 import org.dbpedia.spotlight.common.annotation.AnnotationUnit;
-import org.dbpedia.spotlight.common.candidates.array.CandidatesArrayUnit;
+import org.dbpedia.spotlight.common.candidates.CandidatesUnit;
 import org.dbpedia.spotlight.services.SpotlightConfiguration;
 import org.nlp2rdf.NIF;
 import org.nlp2rdf.bean.NIFBean;
@@ -57,16 +57,16 @@ public class NIFWrapper {
 
     }
 
-    public void entity(CandidatesArrayUnit candidatesUnit) {
+    public void entity(CandidatesUnit candidatesUnit) {
 
         NIFBean.NIFBeanBuilder entity = new NIFBean.NIFBeanBuilder();
-        this.context(candidatesUnit.getCandidatesArrayAnnotation().getText());
+        this.context(candidatesUnit.getCandidatesAnnotation().getText());
 
-        if (candidatesUnit.getCandidatesArrayAnnotation().hasSurfaceForms()) {
+        if (candidatesUnit.getCandidatesAnnotation().hasSurfaceForms()) {
 
-            candidatesUnit.getCandidatesArrayAnnotation().getSurfaceForms().stream().forEach(surfaceForm -> {
+            candidatesUnit.getCandidatesAnnotation().getSurfaceForms().stream().forEach(surfaceForm -> {
 
-                surfaceForm.getCandidateArrayResourceItem().forEach(candidateArrayResourceItem -> {
+                surfaceForm.getCandidateResourceItem().forEach(candidateArrayResourceItem -> {
                     entity.mention(surfaceForm.getName());
                     entity.beginIndex(surfaceForm.beginIndex());
                     entity.endIndex(surfaceForm.endIndex());

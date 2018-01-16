@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,7 +23,7 @@ public class SurfaceForm {
 
     @JsonProperty("resource")
     @SerializedName("resource")
-    private CandidateResourceItem candidateResourceItem;
+    private List<CandidateResourceItem> candidateResourceItem;
 
     public Integer beginIndex() {
         try {

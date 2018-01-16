@@ -14,4 +14,5 @@ public class CandidatesUnit {
     @JsonProperty("annotation")
     @SerializedName("annotation")
     private CandidatesAnnotation candidatesAnnotation;
+
 }

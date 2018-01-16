@@ -5,7 +5,7 @@ import feign.form.FormEncoder;
 import lombok.RequiredArgsConstructor;
 import org.dbpedia.spotlight.approach.Candidates;
 import org.dbpedia.spotlight.common.SemanticMediaType;
-import org.dbpedia.spotlight.common.candidates.array.CandidatesArrayUnit;
+import org.dbpedia.spotlight.common.candidates.CandidatesUnit;
 import org.dbpedia.spotlight.formats.NIFWrapper;
 import org.dbpedia.spotlight.services.SpotlightConfiguration;
 import org.dbpedia.spotlight.services.SpotlightLanguageDetector;
@@ -73,7 +73,7 @@ public class CandidatesRest extends DBpediaSpotlightRest {
 
         NIFWrapper nif = getNifWrapper(configuration, prefix);
 
-        CandidatesArrayUnit candidatesUnit = toCandidates(serviceRequest(text, inUrl, confidence, dbpediaTypes, outputFormat));
+        CandidatesUnit candidatesUnit = toCandidates(serviceRequest(text, inUrl, confidence, dbpediaTypes, outputFormat));
         nif.entity(candidatesUnit);
 
         return nif.getNIF(outputFormat);
@@ -110,17 +110,17 @@ public class CandidatesRest extends DBpediaSpotlightRest {
             produces = MediaType.APPLICATION_JSON)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public CandidatesArrayUnit json(@RequestParam("text") Optional<String> text,
-                                    @RequestParam("url") Optional<String> inUrl,
-                                    @RequestParam("confidence") Optional<Double> confidence,
-                                    @RequestParam("support") Optional<Integer> support,
-                                    @RequestParam("types") Optional<String> dbpediaTypes,
-                                    @RequestParam("sparql") Optional<String> sparqlQuery,
-                                    @RequestParam("policy") Optional<String> policy,
-                                    @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
-                                    @RequestParam("spotter") Optional<String> spotter,
-                                    @RequestParam("disambiguator") Optional<String> disambiguatorName,
-                                    @RequestBody Optional<String> fileContent) {
+    public CandidatesUnit json(@RequestParam("text") Optional<String> text,
+                               @RequestParam("url") Optional<String> inUrl,
+                               @RequestParam("confidence") Optional<Double> confidence,
+                               @RequestParam("support") Optional<Integer> support,
+                               @RequestParam("types") Optional<String> dbpediaTypes,
+                               @RequestParam("sparql") Optional<String> sparqlQuery,
+                               @RequestParam("policy") Optional<String> policy,
+                               @RequestParam("coreferenceResolution") Optional<Boolean> coreferenceResolution,
+                               @RequestParam("spotter") Optional<String> spotter,
+                               @RequestParam("disambiguator") Optional<String> disambiguatorName,
+                               @RequestBody Optional<String> fileContent) {
 
         if (!text.isPresent() && fileContent.isPresent()) {
             text = fileContent;

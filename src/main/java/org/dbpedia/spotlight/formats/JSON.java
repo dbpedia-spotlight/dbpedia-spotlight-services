@@ -7,8 +7,6 @@ import org.dbpedia.spotlight.common.annotation.AnnotationUnit;
 import org.dbpedia.spotlight.common.annotation.ResourceItem;
 import org.dbpedia.spotlight.common.candidates.CandidateResourceItem;
 import org.dbpedia.spotlight.common.candidates.CandidatesUnit;
-import org.dbpedia.spotlight.common.candidates.array.CandidateArrayResourceItem;
-import org.dbpedia.spotlight.common.candidates.array.CandidatesArrayUnit;
 
 import java.util.List;
 
@@ -32,23 +30,18 @@ public final class JSON {
         return annotationUnit;
     }
 
-    public static CandidatesArrayUnit toCandidates(String content) {
+    public static CandidatesUnit toCandidates(String content) {
 
         Gson gson  = new GsonBuilder().registerTypeAdapterFactory(new ArrayAdapterFactory()).create();
 
-        CandidatesArrayUnit candidatesUnit = new CandidatesArrayUnit();
+        CandidatesUnit candidatesUnit = new CandidatesUnit();
 
-        try {
-            candidatesUnit = gson.fromJson(content, CandidatesArrayUnit.class);
-        } catch (Exception e) {
-            CandidatesUnit result = gson.fromJson(content, CandidatesUnit.class);
-            candidatesUnit.parse(result);
-        }
+        candidatesUnit = gson.fromJson(content, CandidatesUnit.class);
 
-        if (candidatesUnit != null && candidatesUnit.getCandidatesArrayAnnotation().hasSurfaceForms()) {
+        if (candidatesUnit != null && candidatesUnit.getCandidatesAnnotation().hasSurfaceForms()) {
 
-            candidatesUnit.getCandidatesArrayAnnotation().getSurfaceForms().forEach(surfaceForm -> {
-                fixCandidatePrefixes(surfaceForm.getCandidateArrayResourceItem());
+            candidatesUnit.getCandidatesAnnotation().getSurfaceForms().forEach(surfaceForm -> {
+                fixCandidatePrefixes(surfaceForm.getCandidateResourceItem());
             });
 
         }
@@ -67,13 +60,13 @@ public final class JSON {
         resource.setTypes(fixPrefixes(resource.getTypes()));
     }
 
-    private static void fixCandidatePrefixes(List<CandidateArrayResourceItem> resources) {
+    private static void fixCandidatePrefixes(List<CandidateResourceItem> resources) {
         if (resources != null && !resources.isEmpty()) {
             resources.forEach(resourceItem -> fixCandidatePrefixes(resourceItem));
         }
     }
 
-    private static void fixCandidatePrefixes(CandidateArrayResourceItem resource) {
+    private static void fixCandidatePrefixes(CandidateResourceItem resource) {
         resource.setTypes(fixPrefixes(resource.getTypes()));
     }
 
