@@ -60,4 +60,9 @@ public class CandidateArrayResourceItem {
         return new ArrayList<>();
     }
 
+
+    public String getUri() {
+        return String.format("http://dbpedia.org/resource/%s", uri);
+    }
+
 }
