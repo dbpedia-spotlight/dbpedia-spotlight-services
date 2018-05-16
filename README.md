@@ -13,21 +13,7 @@ All the best,
 =======================
 
 
-
-## What is DBpedia Spotlight?
-
-DBpedia Spotlight is a tool for automatically annotating mentions of DBpedia resources in text, providing a solution for linking unstructured information sources to the Linked Open Data cloud through DBpedia.
-
-## What is DBpedia Spotlight Services?
-
-TODO: Describe
-
-
 ## Issues
 
-If you have any problems with or questions about this library, please contact us through a [GitHub issue](https://github.com/sandroacoelho/dbpedia-spotlight-services/issues).
-
-## Maintainers
-
-<a href="http://infai.org"><img src="http://infai.org/de/Presse/Logos/files?get=infai_logo_en_rgb_300dpi.jpg" align="left" height="20%" width="20%" ></a>
+If you have any problems with or questions about this library, please contact us through a [GitHub issue](https://github.com/tanker-nerd/dbpedia-spotlight-services/issues).
 
