@@ -1,0 +1,6 @@
+spotlight:
+  url: "http://model.dbpedia-spotlight.org"
+  languages: "en,de,pt"
+
+json-ld:
+  context: "http://www.jsonld-context.io/api/v1?ontology=http://persistence.uni-leipzig.org/nlp2rdf/ontologies/nif-core,http://www.w3.org/2005/11/its/rdf"

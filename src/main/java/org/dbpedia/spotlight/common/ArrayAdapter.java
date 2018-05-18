@@ -46,7 +46,7 @@ public class ArrayAdapter<T> extends TypeAdapter<List<T>> {
         return list;
     }
 
-    public void write(JsonWriter writer, List<T> value) throws IOException {
+    public void write(JsonWriter writer, List<T> value)  {
 
     }
 

@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+
 @Getter
 @Setter
 @Component
@@ -16,6 +17,17 @@ public class SpotlightConfiguration {
 
     @Value("${spotlight.url}")
     private String spotlightURL;
+
+    @Value("${spotlight.languages}")
+    private String enabledLanguages;
+
+    public boolean hasLanguage(String language) {
+        if ( language != null) {
+            return enabledLanguages.contains(language);
+        }
+
+        return false;
+    }
 
     @Value("${json-ld.context}")
     private String jsonContext;

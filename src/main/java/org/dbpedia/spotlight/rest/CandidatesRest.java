@@ -102,7 +102,7 @@ public class CandidatesRest extends DBpediaSpotlightRest {
 
         String result = serviceRequest(text, inUrl, confidence, dbpediaTypes, MediaType.TEXT_HTML);
 
-        return new ResponseEntity<String>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
@@ -155,7 +155,7 @@ public class CandidatesRest extends DBpediaSpotlightRest {
 
         String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, prefix, TEXT_TURTLE);
 
-        return new ResponseEntity<String>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
@@ -181,7 +181,7 @@ public class CandidatesRest extends DBpediaSpotlightRest {
 
         String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, prefix, APPLICATION_N_TRIPLES);
 
-        return new ResponseEntity<String>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(method = {RequestMethod.POST, RequestMethod.GET},
@@ -207,7 +207,7 @@ public class CandidatesRest extends DBpediaSpotlightRest {
 
         String result = getSemanticFormats(text, inUrl, confidence, dbpediaTypes, prefix, APPLICATION_LD_JSON);
 
-        return new ResponseEntity<String>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

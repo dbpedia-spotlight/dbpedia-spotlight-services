@@ -1,6 +1,5 @@
 package org.dbpedia.spotlight.approach;
 
-
 import feign.Headers;
 import feign.Param;
 import feign.RequestLine;

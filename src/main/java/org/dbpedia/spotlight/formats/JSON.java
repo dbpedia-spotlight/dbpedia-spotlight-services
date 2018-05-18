@@ -16,7 +16,6 @@ import static org.dbpedia.spotlight.common.Prefixes.SCHEMA_ONTOLOGY;
 public final class JSON {
 
     private JSON() {
-
     }
 
     public static AnnotationUnit toAnnotation(String content) {

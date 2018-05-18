@@ -1,15 +1,12 @@
 package org.dbpedia.spotlight.common;
 
-public final class Constants {
+public interface Constants {
 
-    public static final String EMPTY = "";
+    String EMPTY = "";
 
-    public static final String SLASH = "/";
+    String SLASH = "/";
 
-    public static final String COMMA = ",";
+    String COMMA = ",";
 
-    private Constants() {
-
-    }
 
 }

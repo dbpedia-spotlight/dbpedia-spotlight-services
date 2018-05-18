@@ -10,6 +10,7 @@ import com.optimaize.langdetect.profiles.LanguageProfileReader;
 import com.optimaize.langdetect.text.CommonTextObjectFactories;
 import com.optimaize.langdetect.text.TextObject;
 import com.optimaize.langdetect.text.TextObjectFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -22,6 +23,8 @@ public class SpotlightLanguageDetector {
 
     private LanguageDetector languageDetector;
 
+    @Autowired
+    private SpotlightConfiguration configuration;
 
     public SpotlightLanguageDetector() {
 
@@ -51,7 +54,13 @@ public class SpotlightLanguageDetector {
         Optional<LdLocale> lang = languageDetector.detect(textObject);
 
         if (lang.isPresent()) {
-            return lang.get().getLanguage();
+
+            String currentLanguage = lang.get().getLanguage();
+
+            if (configuration.hasLanguage(currentLanguage)) {
+                return currentLanguage;
+            }
+
         }
 
         return ENGLISH;
