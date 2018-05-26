@@ -1,5 +1,5 @@
 spotlight:
-  url: "http://model.dbpedia-spotlight.org"
+  url: "http://api.dbpedia-spotlight.org"
   languages: "en,de,pt"
 
 json-ld:
